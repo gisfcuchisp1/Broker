@@ -1,0 +1,23 @@
+MASAS Posting Tool Changelog
+
+Release V0.21 - October 24, 2012
+
+    Major Changes:
+    - Create circle and box geometries for Entries
+    - Forward Entries via email
+    - Mapping improvements
+    - Libraries and code layout restructured
+    - Build system added
+    View completed tickets at http://masas.ca
+
+
+Release V0.20 - November 29, 2011
+
+    Major Changes:
+    - Updated to support version 2.2 MASAS Hubs
+    - Added support for content items/attachments
+    View completed tickets at http://masas.ca
+
+
+Release V0.1 - February 25, 2011
+

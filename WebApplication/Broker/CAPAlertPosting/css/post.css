@@ -1,0 +1,171 @@
+/**
+MASAS Post Tool - Stylesheet
+Updated: Dec 11, 2012
+Independent Joint Copyright (c) 2011-2012 MASAS Contributors.  Published
+under the Modified BSD license.  See license.txt for the full text of the license.
+*/
+
+html, body {
+    font:normal 12px verdana;
+    margin:0;
+    padding:0;
+    border:0 none;
+    overflow:hidden;
+    height:100%;
+}
+#headerTitleBlock {
+    float: left;
+    font-size: 150%;
+    font-weight: bold;
+    padding: 3px;
+}
+#headerDetailBlock {
+    float: right;
+    padding: 5px;
+    font-size: 85%;
+    font-weight: bold;
+}
+.olControlLoadingPanel {
+    background-image: url("../img/layer-loading.gif");
+    margin-left: 35%;
+    margin-top: 25px;
+    position: relative;
+    width: 195px;
+    height: 11px;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: none;
+}
+.editPanel { top: 120px; left: 14px; position: absolute; }
+.editPanel div {
+    margin-top: 10px;
+    width: 24px;
+    height: 24px;
+    border: 1px solid white;
+    background-color: white;
+}
+.drawPanel { top: 156px; left: 46px; position: absolute; }
+.drawPanel div {
+    margin-top: 10px;
+    width: 24px;
+    height: 24px;
+    border: 1px solid white;
+    background-color: white;
+}
+.olControlNavigationItemActive {
+    background-image: url("../img/pan_on.png");
+}
+.olControlNavigationItemInactive {
+    background-image: url("../img/pan_off.png");
+}
+.saveButtonItemActive {
+    background-image: url("../img/save_features_on.png");
+}
+.saveButtonItemInactive {
+    background-image: url("../img/save_features_off.png");
+}
+.modifyButtonItemActive {
+    background-image: url("../img/move_feature_on.png");
+}
+.modifyButtonItemInactive {
+    background-image: url("../img/move_feature_off.png");
+}
+.deleteButtonItemActive {
+    background-image: url("../img/delete_feature_on.png");
+}
+.deleteButtonItemInactive {
+    background-image: url("../img/delete_feature_off.png");
+}
+.pointButtonItemActive {
+    background-image: url("../img/draw_point_on.png");
+}
+.pointButtonItemInactive {
+    background-image: url("../img/draw_point_off.png");
+}
+.lineButtonItemActive {
+    background-image: url("../img/draw_line_on.png");
+}
+.lineButtonItemInactive {
+    background-image: url("../img/draw_line_off.png");
+}
+.polygonButtonItemActive {
+    background-image: url("../img/draw_polygon_on.png");
+}
+.polygonButtonItemInactive {
+    background-image: url("../img/draw_polygon_off.png");
+}
+.circleButtonItemActive {
+    background-image: url("../img/draw_circle_on.png");
+}
+.circleButtonItemInactive {
+    background-image: url("../img/draw_circle_off.png");
+}
+.boxButtonItemActive {
+    background-image: url("../img/draw_box_on.png");
+}
+.boxButtonItemInactive {
+    background-image: url("../img/draw_box_off.png");
+}
+.btnLeftArrow {
+    background-image: url("../img/left-btn.gif");
+    height:16px;
+}
+.x-item-disabled .btnLeftArrow {
+    background-image: url("../img/left-btn-dis.gif");
+}
+.btnRightArrow {
+    background-image: url("../img/right-btn.gif");
+    height:16px;    
+}
+.x-item-disabled .btnRightArrow {
+    background-image: url("../img/right-btn-dis.gif");
+}
+.expiresIntervalDefault {
+    font-weight: bold;
+}
+.locationNotificationMsg .ext-mb-text {
+    background-color: white;
+    padding: 2px 15px;
+    font-weight: bold;
+}
+.postingCard { margin: 25px; }
+.postingCard h1 { margin-bottom: 25px; font-weight: bold; font-size: 150%; }
+.postingCard a {
+    display: block;
+    padding: 10px;
+    margin-bottom: 25px;
+    border: 1px solid black;
+    width: 250px;
+    text-decoration: none;
+    text-align: center;
+    font-weight: bold;
+    font-size: 120%;
+}
+.TemplateDisplayBox { margin: 5px; padding: 5px; border: 1px solid black; }
+.TemplateDisplayBox h2 { margin-bottom: 2px; font-size: 140%; font-weight: bold; }
+.TemplateDisplayBox p { margin-left: 10px; line-height: 140%; }
+.iconTreeExpand {
+    background-image: url("../img/ns-expand.gif");
+}
+.iconTreeCollapse {
+    background-image: url("../img/ns-collapse.gif");
+}
+.abortButton { background-image: url("../img/abort.png"); }
+.previousButton { background-image: url("../img/previous-page.png"); }
+.nextButton { background-image: url("../img/next-page.png"); }
+.postingWait {
+    height: 70px;
+    width: 70px;
+    background-image: url("../img/posting-wait.gif");
+    background-repeat: no-repeat;
+}
+.emailToggleField {
+    border-width: 0px;
+    margin-bottom:10px;
+}
+.emailToggleField .x-tool-toggle {
+    background-position: 0 -255px !important; /*the minus sign*/
+}
+.emailToggleField .x-fieldset-collapsed .x-tool-toggle {
+    background-position: 0 -240px !important; /*the plus sign*/
+}

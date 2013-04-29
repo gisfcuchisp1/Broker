@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wns:Capabilities xmlns="http://www.opengis.net/ows"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+   xmlns:xlink="http://www.w3.org/1999/xlink" 
+   xmlns:ogc="http://www.opengis.net/ogc"
+   xsi:schemaLocation="http://www.opengis.net/wns ..\wns.xsd" Version="0.0.1"
+   xmlns:wns="http://schemas.opengeospatial.net/wns/0.0.1/wns.xsd">
+
+<ServiceIdentification>
+   <Title>CHISP Web Notification Service</Title>
+   <Abstract>CHISP Web Notification Service</Abstract>
+   <Keywords>
+      <Keyword>CHISP</Keyword>
+      <Keyword>water</Keyword>
+      <Keyword>WNS</Keyword>
+   </Keywords>
+   <ServiceType>WNS</ServiceType>
+   <ServiceTypeVersion>0.0.1</ServiceTypeVersion>
+   <Fees>none</Fees>
+   <AccessConstraints>none</AccessConstraints>
+</ServiceIdentification>
+
+<ServiceProvider>
+   <ProviderName>GIS.FCU</ProviderName>
+   <ServiceContact>
+   <IndividualName>Chung YuHua</IndividualName>
+      <PositionName>Engineer</PositionName>
+      <ContactInfo>
+         <Phone>
+            <Voice>886424516669#610</Voice>
+         </Phone>
+         <Address>
+         <DeliveryPoint>Wen-Hwa Rd.,Taichung,Taiwan</DeliveryPoint>
+         <City>Taichung</City>
+         <PostalCode>407</PostalCode>
+         <Country>Taiwan</Country>
+            <ElectronicMailAddress>orange@gis.tw</ElectronicMailAddress>
+         </Address>
+      </ContactInfo>
+   </ServiceContact>
+</ServiceProvider>
+  
+<OperationsMetadata>
+   <Operation name="getCapabilities">
+      <DCP><HTTP><Get xlink:href="http://www.example.com/getCapabilities"></Get></HTTP></DCP>
+   </Operation>
+   <Operation name="registerUser">
+      <DCP><HTTP><Get xlink:href="http://www.example.com/registerUser"></Get></HTTP></DCP>
+      <Parameter name="outputFormat">
+         <Value>text/xml</Value>
+      </Parameter>
+   </Operation>
+   <Operation name="doNotification">
+      <DCP><HTTP><Get xlink:href="http://www.example.com/doNotification"></Get></HTTP></DCP>
+      <Parameter name="outputFormat">
+         <Value>text/xml</Value>
+      </Parameter>
+   </Operation>
+</OperationsMetadata>
+</wns:Capabilities>

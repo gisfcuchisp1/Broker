@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- edited with XML Spy v4.4 U (http://www.xmlspy.com) by Institut fur Geoinformatik (Institut fur Geoinformatik) -->
+<xs:schema id="OGCwnsMessage"
+           targetNamespace="http://www.opengis.net/wns" 
+           xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+           xmlns="http://www.opengis.net/wns" 
+           elementFormDefault="qualified" 
+           attributeFormDefault="unqualified">
+  <!--==========================================================
+ELEMENTS
+==========================================================-->
+  <!--NotificationMessage-->
+  <xs:element name="NotificationMessage" type="NotificationMessageType"/>
+  <!--CommunicationRequestMessage-->
+  <xs:element name="CommunicationRequestMessage" type="CommunicationRequestMessageType"/>
+  <!--CommunicationReplyMessage-->
+  <xs:element name="CommunicationReplyMessage" type="CommunicationReplyMessageType"/>
+  <!--==========================================================
+GROUPS
+==========================================================-->
+  <!--MessageParameterGroup-->
+  <xs:group name="MessageParameterGroup">
+    <xs:sequence>
+      <xs:element name="CorrID" type="xs:long"/>
+      <xs:element name="Key" type="xs:string"/>
+      <xs:choice minOccurs="0">
+        <xs:element name="String" type="xs:string"/>
+        <xs:element name="Integer" type="xs:integer"/>
+        <xs:element name="Float" type="xs:float"/>
+        <xs:element name="Long" type="xs:long"/>
+        <xs:element name="Double" type="xs:double"/>
+        <xs:element name="URI" type="xs:anyURI"/>
+      </xs:choice>
+    </xs:sequence>
+  </xs:group>
+  <!--===========================================================
+TYPES
+===========================================================-->
+  <!--NotificationMessageType-->
+  <xs:complexType name="NotificationMessageType">
+    <xs:sequence>
+      <xs:element name="Type">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:whiteSpace value="preserve"/>
+            <xs:enumeration value="Operation completed"/>
+            <xs:enumeration value="Operation failed"/>
+            <xs:enumeration value="Operation cancelled"/>
+            <xs:enumeration value="Operation delayed"/>
+            <xs:enumeration value="New data available"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="MessageParameter" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:group ref="MessageParameterGroup"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <!--CommunciationRequestMessageType-->
+  <xs:complexType name="CommunicationRequestMessageType">
+    <xs:sequence>
+      <xs:element name="Action" type="CommunicationAction"/>
+      <xs:element name="MessageParameter" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:group ref="MessageParameterGroup"/>
+            <xs:element name="Unit" type="xs:string"/>
+            <xs:element name="Options" type="xs:anySimpleType"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <!--CommunicationReplyMessageType-->
+  <xs:complexType name="CommunicationReplyMessageType">
+    <xs:sequence>
+      <xs:element name="Action" type="xs:string"/>
+      <xs:element name="MessageParameter" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:group ref="MessageParameterGroup"/>
+            <xs:element name="Value" type="xs:anySimpleType"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <!--==========================================================
+SIMPLE TYPES
+==========================================================-->
+  <!--CommunicationAction-->
+  <xs:simpleType name="CommunicationAction">
+    <xs:restriction base="xs:string">
+      <xs:whiteSpace value="preserve"/>
+      <xs:enumeration value="Information needed"/>
+      <xs:enumeration value="Allowance to proceed"/>
+      <xs:enumeration value="Allowance to abort"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

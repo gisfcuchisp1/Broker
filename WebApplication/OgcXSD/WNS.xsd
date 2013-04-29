@@ -1,0 +1,229 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- edited with XML Spy v4.4 U (http://www.xmlspy.com) by Institut fur Geoinformatik (Institut fur Geoinformatik) -->
+<xs:schema id="OGCwns" 
+           targetNamespace="http://www.opengis.net/wns" 
+           xmlns="http://www.opengis.net/wns" 
+           xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+           elementFormDefault="qualified" 
+           attributeFormDefault="unqualified">
+  <!--================================================================
+Includes and Imports
+==================================================================-->
+  <xs:include id="wnsMessage" schemaLocation="wnsMessage.xsd" />
+  <!--================================================================
+R E Q U E S T M E S S A G E S
+===================================================================-->
+  <!--GetCapabilities-->
+  <xs:element name="GetCapabilities" type="GetCapabilitiesType"/>
+  <!--RegisterUser-->
+  <xs:element name="RegisterUser" type="RegisterUserType"/>
+  <!--DoNotification-->
+  <xs:element name="DoNotification" type="DoNotificationType"/>
+  <!--DoCommunication-->
+  <xs:element name="DoCommunication" type="DoCommunicationType"/>
+  <!--DoReply-->
+  <xs:element name="DoReply" type="DoReplyType"/>
+  <!--=================================================================
+R E S P O N S E S
+===================================================================-->
+  <!--GetCapabilitiesResponse-->
+  <xs:element name="GetCapabilitiesResponse" type="GetCapabilitiesResponseType"/>
+  <!--RegisterUserResponse-->
+  <xs:element name="RegisterUserResponse" type="RegisterUserResponseType"/>
+  <!--DoNotificationResponse-->
+  <xs:element name="DoNotificationResponse" type="DoNotificationResponseType"/>
+  <!--DoCommunicationResponse-->
+  <xs:element name="DoCommunicationResponse" type="DoCommunicationResponseType"/>
+  <!--DoReplyResponse-->
+  <xs:element name="DoReplyResponse" type="DoReplyResponseType"/>
+  <!--=================================================================
+T Y P E S
+===================================================================-->
+  <!--=================================================================
+MessageTypes
+===================================================================-->
+  <!--GetCapabilitiesType-->
+  <xs:complexType name="GetCapabilitiesType">
+    <xs:sequence>
+      <xs:element name="Service">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Name" type="xs:string"/>
+            <xs:element name="Title" type="xs:string"/>
+            <xs:element name="Keywordlist" type="Keywordlist"/>
+            <xs:element name="ContactInformation" type="ContactInformationType"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Capabilities" type="RequestType"/>
+    </xs:sequence>
+    <xs:attribute name="Version" type="xs:string" use="optional" fixed="0.0.1"/>
+    <xs:attribute name="Service" type="xs:string" use="required" fixed="WNS"/>
+    <xs:attribute name="UpdateSequenceString" type="xs:string" use="optional"/>
+  </xs:complexType>
+  <!--RegisterUser-->
+  <xs:complexType name="RegisterUserType">
+    <xs:sequence>
+      <xs:element name="Name" type="xs:string"/>
+      <xs:element name="CommunicationProtocol" type="CommunicationProtocolType"/>
+    </xs:sequence>
+    <xs:attribute name="Version" type="xs:string" use="optional" fixed="0.0.1"/>
+    <xs:attribute name="Service" type="xs:string" use="required" fixed="WNS"/>
+  </xs:complexType>
+  <!--DoNotification-->
+  <xs:complexType name="DoNotificationType">
+    <xs:sequence>
+      <xs:element name="UserID" type="xs:unsignedLong"/>
+      <xs:element name="Message" type="NotificationMessageType"/>
+    </xs:sequence>
+    <xs:attribute name="Version" type="xs:string" use="optional" fixed="0.0.1"/>
+    <xs:attribute name="Service" type="xs:string" use="required" fixed="WNS"/>
+  </xs:complexType>
+  <!--DoCommunication-->
+  <xs:complexType name="DoCommunicationType">
+    <xs:sequence>
+      <xs:element name="UserID" type="xs:unsignedLong"/>
+      <xs:element name="CallbackServerURL" type="xs:anyURI"/>
+      <xs:element name="Message" type="CommunicationRequestMessageType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--DoReply-->
+  <xs:complexType name="DoReplyType">
+    <xs:sequence>
+      <xs:element name="UserID" type="xs:unsignedLong"/>
+      <xs:element name="CorrID" type="xs:unsignedLong"/>
+      <xs:element name="CallbackServerURL" type="xs:anyURI"/>
+      <xs:element name="Message" type="CommunicationReplyMessageType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--CommunicationProtocolType-->
+  <!--==================================================================
+ResponseTypes
+====================================================================-->
+  <!--GetCapabilitiesResponseType-->
+  <xs:complexType name="GetCapabilitiesResponseType">
+    <xs:sequence>
+      <xs:any/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--RegisterUserResponseType-->
+  <xs:complexType name="RegisterUserResponseType">
+    <xs:annotation>
+      <xs:documentation>unique user id, provided by the WNS</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="UserID" type="xs:unsignedLong"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--DoNotificationResponseType-->
+  <xs:complexType name="DoNotificationResponseType">
+    <xs:sequence>
+      <xs:element name="Status">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="Notification sending successful"/>
+            <xs:enumeration value="Notification sending failed"/>
+            <xs:enumeration value="Notification timed out"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <!--DoCommunicationResponseType-->
+  <xs:complexType name="DoCommunicationResponseType">
+    <xs:sequence>
+      <xs:element name="Status">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="Communication sending successfull"/>
+            <xs:enumeration value="Communication sending failed"/>
+            <xs:enumeration value="Communication sending timed out"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <!--DoReplyResponseType-->
+  <xs:complexType name="DoReplyResponseType">
+    <xs:sequence>
+      <xs:element name="Status">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="Reply forwarding successfully"/>
+            <xs:enumeration value="Reply forwarding failed"/>
+            <xs:enumeration value="Reply forwarding timed out"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <!--==================================================================
+Further Types & Elements
+====================================================================-->
+  <!--CommunicationProtocolType-->
+  <xs:complexType name="CommunicationProtocolType">
+    <xs:group ref="CommunicationProtocolGroup"/>
+  </xs:complexType>
+  <!--CommunicationProtocolGroup: let's you chose the protocol type-->
+  <xs:group name="CommunicationProtocolGroup">
+    <xs:choice>
+      <xs:element name="Email" type="mailtoType"/>
+      <xs:element name="URL" type="xs:anyURI"/>
+      <xs:element name="SMS" type="xs:unsignedLong"/>
+      <xs:element name="Phone" type="xs:unsignedLong"/>
+      <xs:element name="Fax" type="xs:unsignedLong"/>
+      <xs:element name="InstantMessaging" type="xs:string"/>
+    </xs:choice>
+  </xs:group>
+  <!--mailtoType-->
+  <xs:simpleType name="mailtoType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="\w[-.\w]*@((([A-Za-z0-9])|([A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9]))\.)+[A-Za-z]{2,3}"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--Keywordlist-->
+  <xs:complexType name="Keywordlist">
+    <xs:sequence>
+      <xs:element name="Keyword" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--ContactInformation-->
+  <xs:complexType name="ContactInformationType">
+    <xs:sequence>
+      <xs:element name="ContactPerson" type="xs:string"/>
+      <xs:element name="ContactOrganization" type="xs:string"/>
+      <xs:element name="Email" type="mailtoType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--RequestType for getCapabilities-->
+  <xs:complexType name="RequestType">
+    <xs:sequence>
+      <xs:element name="GetCapabilities" type="RequestDescriptionType"/>
+      <xs:element name="RegisterUser" type="RequestDescriptionType"/>
+      <xs:element name="DoNotification" type="RequestDescriptionType"/>
+      <xs:element name="DoCommunication" type="RequestDescriptionType" minOccurs="0"/>
+      <xs:element name="DoReply" type="RequestDescriptionType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--RequestDescriptionType-->
+  <xs:complexType name="RequestDescriptionType">
+    <xs:sequence>
+      <xs:element name="Format" type="xs:string"/>
+      <xs:element name="DCPType" type="DCPType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--DCPType-->
+  <xs:complexType name="DCPType">
+    <xs:sequence>
+      <xs:element name="HTTP">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Get" minOccurs="0"/>
+            <xs:element name="Post" minOccurs="0"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <!--Subtypes of DCPType-->
+</xs:schema>

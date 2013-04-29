@@ -1,0 +1,27 @@
+205,213c205,206
+< 	/* EDIT: Matt Priour - Original function fails when this component is
+< 	 * destroyed. Received errors in application and tested directly
+< 	 * on the ExtJS examples site:
+< 	 * http://dev.sencha.com/deploy/ext-3.3.1/examples/grouptabs/grouptabs.html
+< 	 * Received the same errors. Function is always called with just
+< 	 * the tabPanel parameter.
+< 	 */
+<     onRemove: function(item){
+<         Ext.destroy(Ext.get(item.tabEl));
+---
+>     onRemove: function(tp, item){
+>         Ext.destroy(Ext.get(this.getTabEl(item)));
+220c213
+<         if (item == this.activeTab || this.activeTab==null) {
+---
+>         if (item == this.activeTab) {
+268,272c261,262
+<         //EDIT: Matt Priour - This component is NOT a TabPanel or a subclass
+< 		//      Need to use proper superclass when destroying 
+< 		//Ext.TabPanel.prototype.beforeDestroy.call(this);
+<         Ext.ux.GroupTab.superclass.beforeDestroy.call(this);
+< 		this.tooltip.destroy();
+---
+>         Ext.TabPanel.prototype.beforeDestroy.call(this);
+>         this.tooltip.destroy();
+

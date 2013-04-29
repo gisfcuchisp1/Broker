@@ -1,0 +1,551 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="WNSModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="WNSModelStoreContainer">
+          <EntitySet Name="FREQUENCY" EntityType="WNSModel.Store.FREQUENCY" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="MONITORDATA" EntityType="WNSModel.Store.MONITORDATA" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="NOTIFICATIONTYPE" EntityType="WNSModel.Store.NOTIFICATIONTYPE" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="REGISTER" EntityType="WNSModel.Store.REGISTER" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="REGISTER_POI" EntityType="WNSModel.Store.REGISTER_POI" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="REGISTER_STATION" EntityType="WNSModel.Store.REGISTER_STATION" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="STATION" EntityType="WNSModel.Store.STATION" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="STATION_UPDATE_FLAG" EntityType="WNSModel.Store.STATION_UPDATE_FLAG" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="sysdiagrams" EntityType="WNSModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="USER" EntityType="WNSModel.Store.USER" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_REGISTER_NOTIFICATIONTYPE" Association="WNSModel.Store.FK_REGISTER_NOTIFICATIONTYPE">
+            <End Role="NOTIFICATIONTYPE" EntitySet="NOTIFICATIONTYPE" />
+            <End Role="REGISTER" EntitySet="REGISTER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REGISTER_POI_REGISTER" Association="WNSModel.Store.FK_REGISTER_POI_REGISTER">
+            <End Role="REGISTER" EntitySet="REGISTER" />
+            <End Role="REGISTER_POI" EntitySet="REGISTER_POI" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REGISTER_STATION_REGISTER_POI" Association="WNSModel.Store.FK_REGISTER_STATION_REGISTER_POI">
+            <End Role="REGISTER_POI" EntitySet="REGISTER_POI" />
+            <End Role="REGISTER_STATION" EntitySet="REGISTER_STATION" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STATION_UPDATE_FLAG_STATION" Association="WNSModel.Store.FK_STATION_UPDATE_FLAG_STATION">
+            <End Role="STATION" EntitySet="STATION" />
+            <End Role="STATION_UPDATE_FLAG" EntitySet="STATION_UPDATE_FLAG" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="FREQUENCY">
+          <Key>
+            <PropertyRef Name="NO" />
+          </Key>
+          <Property Name="NO" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="FREQUENCY_UNIT" Type="nvarchar" Nullable="false" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="MONITORDATA">
+          <Key>
+            <PropertyRef Name="NO" />
+          </Key>
+          <Property Name="NO" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SITEID" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="VALUE" Type="float" Nullable="false" />
+          <Property Name="UPSTREAM" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="NOTIFICATIONTYPE">
+          <Key>
+            <PropertyRef Name="NO" />
+          </Key>
+          <Property Name="NO" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="TYPE" Type="nvarchar" Nullable="false" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="REGISTER">
+          <Key>
+            <PropertyRef Name="NO" />
+          </Key>
+          <Property Name="NO" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="EMAIL" Type="varchar" MaxLength="100" />
+          <Property Name="UID" Type="bigint" Nullable="false" />
+          <Property Name="ROLE" Type="char" Nullable="false" MaxLength="1" />
+          <Property Name="NOTIFICATIONTYPE_NO" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="REGISTER_POI">
+          <Key>
+            <PropertyRef Name="REGISTER_NO" />
+            <PropertyRef Name="SEQ" />
+          </Key>
+          <Property Name="REGISTER_NO" Type="bigint" Nullable="false" />
+          <Property Name="SEQ" Type="bigint" Nullable="false" />
+          <Property Name="POI_TYPE" Type="char" Nullable="false" MaxLength="1" />
+          <Property Name="STATION_ID" Type="nvarchar" MaxLength="100" />
+          <Property Name="LNG" Type="float" />
+          <Property Name="LAT" Type="float" />
+          <Property Name="SW_LEVEL_THRESHOLD" Type="float" />
+          <Property Name="SW_LEVEL_THRESHOLD_UNIT" Type="varchar" MaxLength="20" />
+          <Property Name="SW_LEVEL_THRESHOLD_METRIC" Type="float" />
+          <Property Name="SW_FLOW_THRESHOLD" Type="float" />
+          <Property Name="SW_FLOW_THRESHOLD_UNIT" Type="varchar" MaxLength="20" />
+          <Property Name="SW_FLOW_THRESHOLD_METRIC" Type="float" />
+          <Property Name="FREQUENCY" Type="bigint" Nullable="false" />
+          <Property Name="STATUS" Type="tinyint" Nullable="false" />
+          <Property Name="NOTIFICATION_FLAG" Type="tinyint" Nullable="false" />
+          <Property Name="ALERT_NOTIFCATION_TIME" Type="datetime" />
+          <Property Name="MIN_LNG" Type="float" />
+          <Property Name="MIN_LAT" Type="float" />
+          <Property Name="MAX_LNG" Type="float" />
+          <Property Name="MAX_LAT" Type="float" />
+        </EntityType>
+        <EntityType Name="REGISTER_STATION">
+          <Key>
+            <PropertyRef Name="REGISTER_NO" />
+            <PropertyRef Name="REGISTER_POI_SEQ" />
+            <PropertyRef Name="SEQ" />
+          </Key>
+          <Property Name="REGISTER_NO" Type="bigint" Nullable="false" />
+          <Property Name="REGISTER_POI_SEQ" Type="bigint" Nullable="false" />
+          <Property Name="SEQ" Type="bigint" Nullable="false" />
+          <Property Name="STATION_ID" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="UPSTREAM" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="STATION">
+          <Key>
+            <PropertyRef Name="STATION_ID" />
+          </Key>
+          <Property Name="STATION_ID" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="STATION_TYPE" Type="char" Nullable="false" MaxLength="1" />
+          <Property Name="SW_FLOW" Type="float" />
+          <Property Name="SW_LEVEL" Type="float" />
+          <Property Name="GW_LEVEL" Type="float" />
+          <Property Name="LNG" Type="float" />
+          <Property Name="LAT" Type="float" />
+          <Property Name="LAST_UPDATE_TIME" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="STATION_UPDATE_FLAG">
+          <Key>
+            <PropertyRef Name="UUID" />
+          </Key>
+          <Property Name="UUID" Type="nvarchar" Nullable="false" MaxLength="130" />
+          <Property Name="STATION_ID" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="HAS_NEW_DATA" Type="bit" Nullable="false" />
+          <Property Name="UPDATETIME" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="USER">
+          <Key>
+            <PropertyRef Name="UID" />
+          </Key>
+          <Property Name="UID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="EMAIL" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="FK_REGISTER_NOTIFICATIONTYPE">
+          <End Role="NOTIFICATIONTYPE" Type="WNSModel.Store.NOTIFICATIONTYPE" Multiplicity="1" />
+          <End Role="REGISTER" Type="WNSModel.Store.REGISTER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NOTIFICATIONTYPE">
+              <PropertyRef Name="NO" />
+            </Principal>
+            <Dependent Role="REGISTER">
+              <PropertyRef Name="NOTIFICATIONTYPE_NO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REGISTER_POI_REGISTER">
+          <End Role="REGISTER" Type="WNSModel.Store.REGISTER" Multiplicity="1" />
+          <End Role="REGISTER_POI" Type="WNSModel.Store.REGISTER_POI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REGISTER">
+              <PropertyRef Name="NO" />
+            </Principal>
+            <Dependent Role="REGISTER_POI">
+              <PropertyRef Name="REGISTER_NO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REGISTER_STATION_REGISTER_POI">
+          <End Role="REGISTER_POI" Type="WNSModel.Store.REGISTER_POI" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="REGISTER_STATION" Type="WNSModel.Store.REGISTER_STATION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REGISTER_POI">
+              <PropertyRef Name="REGISTER_NO" />
+              <PropertyRef Name="SEQ" />
+            </Principal>
+            <Dependent Role="REGISTER_STATION">
+              <PropertyRef Name="REGISTER_NO" />
+              <PropertyRef Name="REGISTER_POI_SEQ" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_STATION_UPDATE_FLAG_STATION">
+          <End Role="STATION" Type="WNSModel.Store.STATION" Multiplicity="1" />
+          <End Role="STATION_UPDATE_FLAG" Type="WNSModel.Store.STATION_UPDATE_FLAG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STATION">
+              <PropertyRef Name="STATION_ID" />
+            </Principal>
+            <Dependent Role="STATION_UPDATE_FLAG">
+              <PropertyRef Name="STATION_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WNSModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="WNSEntities">
+          <EntitySet Name="FREQUENCies" EntityType="WNSModel.FREQUENCY" />
+          <EntitySet Name="MONITORDATAs" EntityType="WNSModel.MONITORDATA" />
+          <EntitySet Name="USERs" EntityType="WNSModel.USER" />
+          <EntitySet Name="NOTIFICATIONTYPEs" EntityType="WNSModel.NOTIFICATIONTYPE" />
+          <EntitySet Name="REGISTERs" EntityType="WNSModel.REGISTER" />
+          <EntitySet Name="REGISTER_STATION" EntityType="WNSModel.REGISTER_STATION" />
+          <AssociationSet Name="FK_REGISTER_NOTIFICATIONTYPE" Association="WNSModel.FK_REGISTER_NOTIFICATIONTYPE">
+            <End Role="NOTIFICATIONTYPE" EntitySet="NOTIFICATIONTYPEs" />
+            <End Role="REGISTER" EntitySet="REGISTERs" />
+          </AssociationSet>
+          <EntitySet Name="REGISTER_POI" EntityType="WNSModel.REGISTER_POI" />
+          <AssociationSet Name="FK_REGISTER_POI_REGISTER" Association="WNSModel.FK_REGISTER_POI_REGISTER">
+            <End Role="REGISTER" EntitySet="REGISTERs" />
+            <End Role="REGISTER_POI" EntitySet="REGISTER_POI" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REGISTER_STATION_REGISTER_POI" Association="WNSModel.FK_REGISTER_STATION_REGISTER_POI">
+            <End Role="REGISTER_POI" EntitySet="REGISTER_POI" />
+            <End Role="REGISTER_STATION" EntitySet="REGISTER_STATION" />
+          </AssociationSet>
+          <EntitySet Name="STATION_UPDATE_FLAG" EntityType="WNSModel.STATION_UPDATE_FLAG" />
+          <EntitySet Name="STATIONs" EntityType="WNSModel.STATION" />
+          <AssociationSet Name="FK_STATION_UPDATE_FLAG_STATION" Association="WNSModel.FK_STATION_UPDATE_FLAG_STATION">
+            <End Role="STATION" EntitySet="STATIONs" />
+            <End Role="STATION_UPDATE_FLAG" EntitySet="STATION_UPDATE_FLAG" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="FREQUENCY">
+          <Key>
+            <PropertyRef Name="NO" />
+          </Key>
+          <Property Type="Int32" Name="NO" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="String" Name="FREQUENCY_UNIT" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="MONITORDATA">
+          <Key>
+            <PropertyRef Name="NO" />
+          </Key>
+          <Property Type="Int32" Name="NO" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="String" Name="SITEID" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="Double" Name="VALUE" Nullable="false" />
+          <Property Type="String" Name="UPSTREAM" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="USER">
+          <Key>
+            <PropertyRef Name="UID" />
+          </Key>
+          <Property Type="Int64" Name="UID" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="String" Name="EMAIL" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="NAME" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="NOTIFICATIONTYPE">
+          <Key>
+            <PropertyRef Name="NO" />
+          </Key>
+          <Property Type="Int32" Name="NO" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="String" Name="TYPE" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="REGISTERs" Relationship="WNSModel.FK_REGISTER_NOTIFICATIONTYPE" FromRole="NOTIFICATIONTYPE" ToRole="REGISTER" />
+        </EntityType>
+        <EntityType Name="REGISTER">
+          <Key>
+            <PropertyRef Name="NO" />
+          </Key>
+          <Property Type="Int64" Name="NO" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="String" Name="EMAIL" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="Int64" Name="UID" Nullable="false" />
+          <NavigationProperty Name="NOTIFICATIONTYPE" Relationship="WNSModel.FK_REGISTER_NOTIFICATIONTYPE" FromRole="REGISTER" ToRole="NOTIFICATIONTYPE" />
+          <NavigationProperty Name="REGISTER_POI" Relationship="WNSModel.FK_REGISTER_POI_REGISTER" FromRole="REGISTER" ToRole="REGISTER_POI" />
+          <Property Type="String" Name="ROLE" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="REGISTER_STATION">
+          <Key>
+            <PropertyRef Name="REGISTER_NO" />
+            <PropertyRef Name="REGISTER_POI_SEQ" />
+            <PropertyRef Name="SEQ" />
+          </Key>
+          <Property Type="Int64" Name="REGISTER_NO" Nullable="false" />
+          <Property Type="Int64" Name="REGISTER_POI_SEQ" Nullable="false" />
+          <Property Type="Int64" Name="SEQ" Nullable="false" />
+          <Property Type="String" Name="STATION_ID" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="UPSTREAM" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="REGISTER_POI" Relationship="WNSModel.FK_REGISTER_STATION_REGISTER_POI" FromRole="REGISTER_STATION" ToRole="REGISTER_POI" />
+        </EntityType>
+        <Association Name="FK_REGISTER_NOTIFICATIONTYPE">
+          <End Type="WNSModel.NOTIFICATIONTYPE" Role="NOTIFICATIONTYPE" Multiplicity="1" />
+          <End Type="WNSModel.REGISTER" Role="REGISTER" Multiplicity="*" />
+        </Association>
+        <EntityType Name="REGISTER_POI">
+          <Key>
+            <PropertyRef Name="REGISTER_NO" />
+            <PropertyRef Name="SEQ" />
+          </Key>
+          <Property Type="Int64" Name="REGISTER_NO" Nullable="false" />
+          <Property Type="Int64" Name="SEQ" Nullable="false" />
+          <Property Type="String" Name="POI_TYPE" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="STATION_ID" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Double" Name="LNG" />
+          <Property Type="Double" Name="LAT" />
+          <Property Type="Double" Name="SW_LEVEL_THRESHOLD" />
+          <Property Type="Double" Name="SW_FLOW_THRESHOLD" />
+          <Property Type="Int64" Name="FREQUENCY" Nullable="false" />
+          <Property Type="Byte" Name="STATUS" Nullable="false" />
+          <NavigationProperty Name="REGISTER" Relationship="WNSModel.FK_REGISTER_POI_REGISTER" FromRole="REGISTER_POI" ToRole="REGISTER" />
+          <NavigationProperty Name="REGISTER_STATION" Relationship="WNSModel.FK_REGISTER_STATION_REGISTER_POI" FromRole="REGISTER_POI" ToRole="REGISTER_STATION" />
+          <Property Type="Byte" Name="NOTIFICATION_FLAG" Nullable="false" />
+          <Property Type="String" Name="SW_LEVEL_THRESHOLD_UNIT" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="SW_FLOW_THRESHOLD_UNIT" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="Double" Name="SW_LEVEL_THRESHOLD_METRIC" />
+          <Property Type="Double" Name="SW_FLOW_THRESHOLD_METRIC" />
+          <Property Type="DateTime" Name="ALERT_NOTIFCATION_TIME" />
+          <Property Type="Double" Name="MIN_LNG" />
+          <Property Type="Double" Name="MIN_LAT" />
+          <Property Type="Double" Name="MAX_LNG" />
+          <Property Type="Double" Name="MAX_LAT" />
+        </EntityType>
+        <Association Name="FK_REGISTER_POI_REGISTER">
+          <End Type="WNSModel.REGISTER" Role="REGISTER" Multiplicity="1" />
+          <End Type="WNSModel.REGISTER_POI" Role="REGISTER_POI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REGISTER">
+              <PropertyRef Name="NO" />
+            </Principal>
+            <Dependent Role="REGISTER_POI">
+              <PropertyRef Name="REGISTER_NO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REGISTER_STATION_REGISTER_POI">
+          <End Type="WNSModel.REGISTER_POI" Role="REGISTER_POI" Multiplicity="1" >
+          </End>
+          <End Type="WNSModel.REGISTER_STATION" Role="REGISTER_STATION" Multiplicity="*" >
+          </End>
+          <ReferentialConstraint>
+            <Principal Role="REGISTER_POI">
+              <PropertyRef Name="REGISTER_NO" />
+              <PropertyRef Name="SEQ" />
+            </Principal>
+            <Dependent Role="REGISTER_STATION">
+              <PropertyRef Name="REGISTER_NO" />
+              <PropertyRef Name="REGISTER_POI_SEQ" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="STATION_UPDATE_FLAG">
+          <Key>
+            <PropertyRef Name="UUID" />
+          </Key>
+          <Property Type="String" Name="UUID" Nullable="false" MaxLength="38" FixedLength="true" Unicode="false" />
+          <Property Type="Boolean" Name="HAS_NEW_DATA" Nullable="false" />
+          <Property Type="DateTime" Name="UPDATETIME" Nullable="false" />
+          <NavigationProperty Name="STATION" Relationship="WNSModel.FK_STATION_UPDATE_FLAG_STATION" FromRole="STATION_UPDATE_FLAG" ToRole="STATION" />
+        </EntityType>
+        <EntityType Name="STATION">
+          <Key>
+            <PropertyRef Name="STATION_ID" />
+          </Key>
+          <Property Type="String" Name="STATION_ID" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="STATION_TYPE" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Type="Double" Name="SW_FLOW" />
+          <Property Type="Double" Name="SW_LEVEL" />
+          <Property Type="DateTime" Name="LAST_UPDATE_TIME" Nullable="false" />
+          <NavigationProperty Name="STATION_UPDATE_FLAG" Relationship="WNSModel.FK_STATION_UPDATE_FLAG_STATION" FromRole="STATION" ToRole="STATION_UPDATE_FLAG" />
+          <Property Type="Double" Name="LNG" />
+          <Property Type="Double" Name="LAT" />
+          <Property Type="Double" Name="GW_LEVEL" />
+        </EntityType>
+        <Association Name="FK_STATION_UPDATE_FLAG_STATION">
+          <End Type="WNSModel.STATION" Role="STATION" Multiplicity="1" />
+          <End Type="WNSModel.STATION_UPDATE_FLAG" Role="STATION_UPDATE_FLAG" Multiplicity="*" />
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WNSModelStoreContainer" CdmEntityContainer="WNSEntities">
+          <EntitySetMapping Name="FREQUENCies">
+            <EntityTypeMapping TypeName="WNSModel.FREQUENCY">
+              <MappingFragment StoreEntitySet="FREQUENCY">
+                <ScalarProperty Name="FREQUENCY_UNIT" ColumnName="FREQUENCY_UNIT" />
+                <ScalarProperty Name="NO" ColumnName="NO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MONITORDATAs">
+            <EntityTypeMapping TypeName="WNSModel.MONITORDATA">
+              <MappingFragment StoreEntitySet="MONITORDATA">
+                <ScalarProperty Name="UPSTREAM" ColumnName="UPSTREAM" />
+                <ScalarProperty Name="VALUE" ColumnName="VALUE" />
+                <ScalarProperty Name="SITEID" ColumnName="SITEID" />
+                <ScalarProperty Name="NO" ColumnName="NO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USERs">
+            <EntityTypeMapping TypeName="WNSModel.USER">
+              <MappingFragment StoreEntitySet="USER">
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="UID" ColumnName="UID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NOTIFICATIONTYPEs">
+            <EntityTypeMapping TypeName="WNSModel.NOTIFICATIONTYPE">
+              <MappingFragment StoreEntitySet="NOTIFICATIONTYPE">
+                <ScalarProperty Name="TYPE" ColumnName="TYPE" />
+                <ScalarProperty Name="NO" ColumnName="NO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REGISTERs">
+            <EntityTypeMapping TypeName="WNSModel.REGISTER">
+              <MappingFragment StoreEntitySet="REGISTER">
+                <ScalarProperty Name="ROLE" ColumnName="ROLE" />
+                <ScalarProperty Name="UID" ColumnName="UID" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="NO" ColumnName="NO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REGISTER_STATION">
+            <EntityTypeMapping TypeName="WNSModel.REGISTER_STATION">
+              <MappingFragment StoreEntitySet="REGISTER_STATION">
+                <ScalarProperty Name="UPSTREAM" ColumnName="UPSTREAM" />
+                <ScalarProperty Name="STATION_ID" ColumnName="STATION_ID" />
+                <ScalarProperty Name="SEQ" ColumnName="SEQ" />
+                <ScalarProperty Name="REGISTER_POI_SEQ" ColumnName="REGISTER_POI_SEQ" />
+                <ScalarProperty Name="REGISTER_NO" ColumnName="REGISTER_NO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="FK_REGISTER_NOTIFICATIONTYPE" TypeName="WNSModel.FK_REGISTER_NOTIFICATIONTYPE" StoreEntitySet="REGISTER">
+            <EndProperty Name="REGISTER">
+              <ScalarProperty Name="NO" ColumnName="NO" />
+            </EndProperty>
+            <EndProperty Name="NOTIFICATIONTYPE">
+              <ScalarProperty Name="NO" ColumnName="NOTIFICATIONTYPE_NO" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="REGISTER_POI">
+            <EntityTypeMapping TypeName="WNSModel.REGISTER_POI">
+              <MappingFragment StoreEntitySet="REGISTER_POI">
+                <ScalarProperty Name="MAX_LAT" ColumnName="MAX_LAT" />
+                <ScalarProperty Name="MAX_LNG" ColumnName="MAX_LNG" />
+                <ScalarProperty Name="MIN_LAT" ColumnName="MIN_LAT" />
+                <ScalarProperty Name="MIN_LNG" ColumnName="MIN_LNG" />
+                <ScalarProperty Name="ALERT_NOTIFCATION_TIME" ColumnName="ALERT_NOTIFCATION_TIME" />
+                <ScalarProperty Name="SW_FLOW_THRESHOLD_METRIC" ColumnName="SW_FLOW_THRESHOLD_METRIC" />
+                <ScalarProperty Name="SW_LEVEL_THRESHOLD_METRIC" ColumnName="SW_LEVEL_THRESHOLD_METRIC" />
+                <ScalarProperty Name="SW_FLOW_THRESHOLD_UNIT" ColumnName="SW_FLOW_THRESHOLD_UNIT" />
+                <ScalarProperty Name="SW_LEVEL_THRESHOLD_UNIT" ColumnName="SW_LEVEL_THRESHOLD_UNIT" />
+                <ScalarProperty Name="NOTIFICATION_FLAG" ColumnName="NOTIFICATION_FLAG" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="FREQUENCY" ColumnName="FREQUENCY" />
+                <ScalarProperty Name="SW_FLOW_THRESHOLD" ColumnName="SW_FLOW_THRESHOLD" />
+                <ScalarProperty Name="SW_LEVEL_THRESHOLD" ColumnName="SW_LEVEL_THRESHOLD" />
+                <ScalarProperty Name="LAT" ColumnName="LAT" />
+                <ScalarProperty Name="LNG" ColumnName="LNG" />
+                <ScalarProperty Name="STATION_ID" ColumnName="STATION_ID" />
+                <ScalarProperty Name="POI_TYPE" ColumnName="POI_TYPE" />
+                <ScalarProperty Name="SEQ" ColumnName="SEQ" />
+                <ScalarProperty Name="REGISTER_NO" ColumnName="REGISTER_NO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="STATION_UPDATE_FLAG">
+            <EntityTypeMapping TypeName="WNSModel.STATION_UPDATE_FLAG">
+              <MappingFragment StoreEntitySet="STATION_UPDATE_FLAG">
+                <ScalarProperty Name="UPDATETIME" ColumnName="UPDATETIME" />
+                <ScalarProperty Name="HAS_NEW_DATA" ColumnName="HAS_NEW_DATA" />
+                <ScalarProperty Name="UUID" ColumnName="UUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="STATIONs">
+            <EntityTypeMapping TypeName="WNSModel.STATION">
+              <MappingFragment StoreEntitySet="STATION">
+                <ScalarProperty Name="GW_LEVEL" ColumnName="GW_LEVEL" />
+                <ScalarProperty Name="LAT" ColumnName="LAT" />
+                <ScalarProperty Name="LNG" ColumnName="LNG" />
+                <ScalarProperty Name="LAST_UPDATE_TIME" ColumnName="LAST_UPDATE_TIME" />
+                <ScalarProperty Name="SW_LEVEL" ColumnName="SW_LEVEL" />
+                <ScalarProperty Name="SW_FLOW" ColumnName="SW_FLOW" />
+                <ScalarProperty Name="STATION_TYPE" ColumnName="STATION_TYPE" />
+                <ScalarProperty Name="STATION_ID" ColumnName="STATION_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="FK_STATION_UPDATE_FLAG_STATION" TypeName="WNSModel.FK_STATION_UPDATE_FLAG_STATION" StoreEntitySet="STATION_UPDATE_FLAG">
+            <EndProperty Name="STATION_UPDATE_FLAG">
+              <ScalarProperty Name="UUID" ColumnName="UUID" />
+            </EndProperty>
+            <EndProperty Name="STATION">
+              <ScalarProperty Name="STATION_ID" ColumnName="STATION_ID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="WNSModel" ZoomLevel="108">
+        <EntityTypeShape EntityType="WNSModel.FREQUENCY" Width="1.5" PointX="0.75" PointY="0.75" Height="1.4033821614583326" />
+        <EntityTypeShape EntityType="WNSModel.MONITORDATA" Width="1.5" PointX="2.75" PointY="0.75" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="WNSModel.USER" Width="1.5" PointX="0.5" PointY="3.125" Height="1.5956835937500031" />
+        <EntityTypeShape EntityType="WNSModel.NOTIFICATIONTYPE" Width="1.5" PointX="3.375" PointY="3.375" Height="1.5956835937499996" />
+        <EntityTypeShape EntityType="WNSModel.REGISTER" Width="1.5" PointX="5.875" PointY="0.5" Height="2.172587890625" />
+        <EntityTypeShape EntityType="WNSModel.REGISTER_STATION" Width="1.5" PointX="11.125" PointY="2" Height="2.1725878906250031" />
+        <AssociationConnector Association="WNSModel.FK_REGISTER_NOTIFICATIONTYPE" >
+          <ConnectorPoint PointX="4.59375" PointY="3.375" />
+          <ConnectorPoint PointX="4.59375" PointY="0.59375" />
+          <ConnectorPoint PointX="5.875" PointY="0.59375" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="WNSModel.REGISTER_POI" Width="2.125" PointX="8" PointY="3.625" Height="3.5186979166666656" />
+        <AssociationConnector Association="WNSModel.FK_REGISTER_POI_REGISTER" >
+          <ConnectorPoint PointX="6.625" PointY="2.672587890625" />
+          <ConnectorPoint PointX="6.625" PointY="5.3843489583333328" />
+          <ConnectorPoint PointX="8" PointY="5.3843489583333328" />
+        </AssociationConnector>
+        <AssociationConnector Association="WNSModel.FK_REGISTER_STATION_REGISTER_POI" >
+          <ConnectorPoint PointX="10.125" PointY="3.8987939453125016" />
+          <ConnectorPoint PointX="11.125" PointY="3.8987939453125016" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="WNSModel.STATION_UPDATE_FLAG" Width="1.5" PointX="3" PointY="6.125" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="WNSModel.STATION" Width="1.5" PointX="0.75" PointY="5.875" Height="2.1725878906249996" />
+        <AssociationConnector Association="WNSModel.FK_STATION_UPDATE_FLAG_STATION" >
+          <ConnectorPoint PointX="2.25" PointY="7.0189925130208337" />
+          <ConnectorPoint PointX="3" PointY="7.0189925130208337" />
+        </AssociationConnector>
+        </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

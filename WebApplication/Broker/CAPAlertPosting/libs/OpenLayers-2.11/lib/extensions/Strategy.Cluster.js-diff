@@ -1,0 +1,15 @@
+37,38d36
+<     addTo: false,
+<     
+126,132d123
+<             if (this.addTo) {
+<               if (this.features == null) this.features = [];
+<               for (var i=0; i<event.features.length; ++i) {
+<                 this.features.push(event.features[i]);
+<               }
+<               this.clusters = null;
+<             } else {
+135d125
+<             }
+287d276
+<     
